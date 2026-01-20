@@ -149,7 +149,7 @@
     </div>
 
     <div class="header-right">
-        ผู้ดูแล (admin) | หน่วยงาน Safety
+        {{ session.get('user_name', 'User') }} ({{ role }}) | หน่วยงาน Safety
         <a href="/logout" class="logout-btn">ออก</a>
     </div>
 </div>
