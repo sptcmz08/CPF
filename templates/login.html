@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Sarabun',sans-serif;
+  background:#f4f6f8;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* ===== LOGIN CENTER ===== */
+.login-wrapper{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ===== LOGIN BOX ===== */
+.login-box{
+  background:#ffffff;
+  padding:60px 50px;
+  width:480px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.18);
+}
+
+.login-box img{
+  width:90px;
+  margin-bottom:20px;
+}
+
+.login-box h2{
+  font-size:26px;
+  margin-bottom:30px;
+  color:#333;
+}
+
+.login-box input{
+  width:100%;
+  padding:14px;
+  font-size:18px;
+  margin-bottom:18px;
+  border:1px solid #ccc;
+  border-radius:8px;
+}
+
+.login-box button{
+  width:100%;
+  padding:14px;
+  font-size:18px;
+  font-weight:bold;
+  background:#2c7be5;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.login-box button:hover{
+  background:#1a5fc4;
+}
+
+.error{
+  color:red;
+  margin-bottom:12px;
+  font-size:14px;
+}
+
+/* ===== FOOTER (เหมือนหน้าเมนู / ขยะติดเชื้อ) ===== */
+.footer{
+  background:#e0e0e0;
+  text-align:center;
+  padding:12px;
+  font-size:13px;
+  color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div class="login-wrapper">
+  <div class="login-box">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/CPF_Logo.svg/1078px-CPF_Logo.svg.png"
+         alt="CPF Logo">
+
+    <h2>ห้องพยาบาล CPF ขอนแก่น</h2>
+
+    <form method="post">
+      <input name="username" placeholder="Username" required>
+      <input name="password" type="password" placeholder="Password" required>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      <button type="submit">เข้าสู่ระบบ</button>
+    </form>
+
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  © 2025 Safety Officer, CPF Khon Kaen Feedmill
+</div>
+
+</body>
+</html>

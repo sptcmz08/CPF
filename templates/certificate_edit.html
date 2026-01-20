@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>แก้ไขข้อมูลใบรับรองแพทย์</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{
+  box-sizing:border-box;
+}
+
+.header{
+  font-size:16px;
+}
+
+body{
+  font-family:'Sarabun',sans-serif;
+  background:#f4f6f8;
+  margin:0;
+}
+
+.container{
+  font-size:24px;
+}
+        /* ================= HEADER ================= */
+        .header{
+            width:100%;
+            background:#ffffff;
+            border-bottom:1px solid #e0e0e0;
+            padding:14px 40px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .header-left{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-size:20px;
+            font-weight:700;
+            color:#5b2c83;
+        }
+
+        .header-left i{
+            font-size:26px;
+        }
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:16px;
+            font-size:14px;
+        }
+
+        .logout-btn{
+            background:#ff6b6b;
+            color:#fff;
+            padding:8px 16px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+        }
+.label-bold{
+  font-weight:700;
+}
+
+/* ===== ระยะห่าง label กับ input ===== */
+.q-row,
+.doctor-row,
+.line-group{
+  margin-bottom: 22px;
+}
+
+label{
+  display:block;
+  margin-bottom:10px;
+}
+
+/* ช่องกรอกอ่านง่ายขึ้น */
+input, textarea, select{
+  margin-top:6px;
+}
+/* ===== ขยาย radio button ===== */
+.option-row input[type="radio"]{
+  transform: scale(1.6);
+  margin-right:6px;
+}
+
+.option-row label{
+  font-size:22px;
+}
+.paper > a.save-btn{
+  text-decoration: none;
+}
+
+.paper > a.save-btn:hover{
+  text-decoration: none;
+}
+
+/* ================= BASE ================= */
+body{
+  font-family:'Sarabun', sans-serif;
+  font-size:24px;
+  background:#f4f6f8;
+  margin:0;
+  padding:20px;
+}
+
+/* ================= กรอบหลัก (เหมือนเมนูใบรับรองแพทย์) ================= */
+.paper{
+  position:relative;
+  max-width:1500px;
+  margin:40px auto;
+  background:#fff;
+  padding:40px;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.25);
+  box-sizing:border-box;
+}
+
+/* ================= หัวข้อ ================= */
+h2{
+  text-align:center;
+  margin-top:10px;
+  margin-bottom:30px;
+  font-size:32px;
+  font-weight:700;
+}
+
+/* ================= ปุ่มกลับเมนู ================= */
+.paper > a.save-btn{
+  position:absolute;
+  top:15px;
+  left:15px;
+  background:#28a745;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:600;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+.paper > a.save-btn:hover{
+  background:#218838;
+}
+
+/* ================= แถบสลับส่วน ================= */
+.tab{
+  text-align:center;
+  margin-bottom:25px;
+}
+.tab button{
+  padding:18px 32px;
+  margin:0 10px;
+  font-size:24px;
+  font-weight:600;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#1E88E5,#90CAF9);
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
+}
+.tab button:hover{
+  transform:translateY(-3px);
+}
+
+/* ================= หัวข้อย่อย ================= */
+.section-title,
+b{
+  font-size:24px;
+  font-weight:700;
+  margin-top:14px;
+}
+.form-title{
+  font-size:32px;
+  font-weight:700;
+  text-align:center;
+}
+
+/* ================= ช่องกรอก ================= */
+input, textarea, select{
+  width:100%;
+  padding:14px;
+  font-size:24px;
+  border-radius:14px;
+  border:1px solid #bbb;
+  box-sizing:border-box;
+}
+
+/* ================= ปุ่มบันทึก / พิมพ์ ================= */
+.save-btn,
+.print-btn{
+  margin-top:24px;
+  padding:18px 32px;
+  font-size:24px;
+  font-weight:600;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#1E88E5,#90CAF9);
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
+}
+.print-btn{ margin-left:10px; }
+
+/* ================= GRID ================= */
+.health-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.option-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* ================= HIDE ================= */
+.hide{ display:none; }
+
+/* ================= PRINT (คงเดิมของคุณ) ================= */
+/* =================================================
+   PRINT : MEDICAL CERTIFICATE A4 (ONE PAGE)
+================================================= */
+@media print {
+
+    /* ===== (1) เว้น 1 บรรทัดก่อนส่วนที่ 2 ===== */
+  #part2 .form-title{
+    margin-top:12px !important;
+  }
+
+  /* ===== (3) ขยายหัวข้อหนา +2px ===== */
+  .form-title,
+  .section-title,
+  b,
+  strong{
+    font-size:18px !important;   /* เดิม 16px */
+    font-weight:700 !important;
+    margin:6px 0 4px;
+  }
+
+  /* ===== (4) เพิ่มช่องว่างระหว่างหัวข้อกับ radio ===== */
+  .option-row{
+    margin-top:4px !important;
+    gap:14px !important;
+  }
+
+  /* ===== radio ไม่ติดตัวอักษร ===== */
+  .option-row label{
+    margin-right:10px !important;
+  }
+
+  /* ===== (2) หมายเหตุ ขนาดเท่าข้อความปกติ ===== */
+  .note div{
+    font-size:16px !important;   /* เดิม 12px */
+    line-height:1.25 !important;
+  }
+
+  /* ===== บีบระยะห่างทั้งหมดเพื่อให้จบ 1 หน้า ===== */
+  .q-row,
+  .doctor-row,
+  .line-group{
+    margin-bottom:6px !important;
+  }
+
+  label{
+    margin-bottom:2px !important;
+  }
+
+  input,
+  textarea,
+  select{
+    margin-top:0 !important;
+    padding:0 !important;
+  }
+
+  /* ===== บีบ paragraph ===== */
+  p{
+    margin:4px 0 !important;
+  }
+
+  /* ===== บีบ div ทั่วไป ===== */
+  div{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+
+  @page{
+    size: A4;
+    margin: 15mm;
+  }
+
+  html, body{
+    margin:0;
+    padding:0;
+    font-family:'Sarabun', sans-serif !important;
+    font-size:16px;
+    line-height:1.25;
+    color:#000;
+    zoom:0.85;   /* ⭐ ตัวนี้ทำให้ลง 1 หน้าแน่นอน */
+  }
+
+  /* ===== ซ่อน UI ===== */
+  button,
+  .tab,
+  .save-btn,
+  .print-btn,
+  a{
+    display:none !important;
+  }
+
+  /* ===== กล่องกระดาษ ===== */
+  .paper,
+  form{
+    max-width:100% !important;
+    box-shadow:none !important;
+    border:none !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+  /* ===== หัวข้อหลัก ===== */
+  h2{
+    font-size:18px !important;
+    font-weight:700;
+    text-align:center;
+    margin:0 0 8px 0;
+  }  
+
+  /* ===== ข้อความทั่วไป ===== */
+  div, p, label, span{
+    font-size:16px !important;
+    font-weight:400 !important;
+    margin:0;
+    padding:0;
+  }
+
+  /* ===== input / textarea ===== */
+  input,
+  textarea,
+  select{
+    font-family:'Sarabun', sans-serif !important;
+    font-size:16px !important;
+    border:none !important;
+    padding:0 !important;
+    margin:0 !important;
+    outline:none !important;
+  }
+
+  textarea{
+    resize:none;
+  }
+
+  /* ===== note ===== */
+
+  /* ===== grid ให้แน่น ===== */
+  .health-grid,
+  .doctor-grid{
+    gap:10px !important;
+  }
+
+  /* ===== ห้ามตัดหน้า ===== */
+  #part1,
+  #part2,
+  .note{
+    display:block !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+
+}
+
+            /* ================= FOOTER ================= */
+        .footer{
+            width:100%;
+            background:#dcdcdc;
+            text-align:center;
+            padding:18px;
+            font-size:14px;
+            color:#555;
+            margin-top:60px;
+        }
+</style>
+</head>
+
+<body>
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-left">
+        <i class="fa-solid fa-stethoscope"></i>
+        ห้องพยาบาล CPF ขอนแก่น
+    </div>
+
+    <div class="header-right">
+        ผู้ดูแล (admin) | หน่วยงาน Safety
+        <a href="/logout" class="logout-btn">ออก</a>
+    </div>
+</div>
+
+<div class="container">
+
+<div class="paper">
+<h2>แก้ไขข้อมูลใบรับรองแพทย์</h2>
+
+<a href="/medical_certificate/register" class="save-btn">⬅ กลับทะเบียน</a>
+
+<div class="tab">
+  <button onclick="showPart(1)">ส่วนที่ 1 ผู้ขอรับใบรับรอง</button>
+  <button onclick="showPart(2)">ส่วนที่ 2 แพทย์</button>
+</div>
+
+<!-- ================= PART 1 ================= -->
+<form id="part1">
+<div class="form-title">ส่วนที่ 1 ผู้ขอรับใบรับรอง</div>
+
+<div class="q-row">
+  <label class="label-bold">คำนำหน้า</label>
+  <select name="prefix">
+    <option>นาย</option>
+    <option>นาง</option>
+    <option>นางสาว</option>
+  </select>
+</div>
+
+<div class="q-row">
+  <label class="label-bold">ชื่อ - นามสกุล</label>
+  <input name="fullname">
+</div>
+
+<div class="q-row">
+  <label class="label-bold">ที่อยู่</label>
+  <textarea name="address"></textarea>
+</div>
+
+<div class="q-row">
+  <label class="label-bold">เลขบัตรประชาชน</label>
+  <input name="citizenId">
+</div>
+
+<div class="section-title">ประวัติสุขภาพ</div>
+
+<div class="health-grid">
+
+<div class="line-group">
+1) โรคประจำตัว
+<div class="option-row">
+<label><input type="radio" name="disease" value="ไม่มี"> ไม่มี</label>
+<label><input type="radio" name="disease" value="มี"> มี</label>
+</div>
+</div>
+
+<div class="line-group">
+2) อุบัติเหตุ / ผ่าตัด
+<div class="option-row">
+<label><input type="radio" name="accident" value="ไม่มี"> ไม่มี</label>
+<label><input type="radio" name="accident" value="มี"> มี</label>
+</div>
+</div>
+
+<div class="line-group">
+3) เคยรักษาในโรงพยาบาล
+<div class="option-row">
+<label><input type="radio" name="hospital_history" value="ไม่มี"> ไม่มี</label>
+<label><input type="radio" name="hospital_history" value="มี"> มี</label>
+</div>
+</div>
+
+<div class="line-group">
+4) ประวัติอื่นที่สำคัญ
+<textarea name="other_history"></textarea>
+</div>
+
+</div>
+
+<div class="doctor-grid">
+<div>
+<label class="section-title">ลงชื่อผู้รับใบรับรอง</label>
+<input name="signer">
+</div>
+<div>
+<label class="section-title">วันที่</label>
+<input type="date" name="date">
+</div>
+</div>
+
+<button type="button" class="save-btn" onclick="saveEdit()">💾 บันทึกการแก้ไข</button>
+<button type="button" class="print-btn" onclick="printCert()">🖨️ พิมพ์ใบรับรองแพทย์</button>
+
+</form>
+
+<!-- ================= PART 2 ================= -->
+<form id="part2" class="hide">
+<div class="form-title">ส่วนที่ 2 ของแพทย์</div>
+
+<div class="doctor-grid">
+<div>
+<label class="section-title">ชื่อแพทย์</label>
+<input name="doctor_name">
+</div>
+<div>
+<label class="section-title">ตรวจร่างกายผู้รับการตรวจ</label>
+<input name="exam_detail">
+</div>
+<div>
+<label class="section-title">ผลการตรวจ</label>
+<input name="result">
+</div>
+<div>
+<label class="section-title">เลขที่ใบประกอบวิชาชีพ</label>
+<input name="license">
+</div>
+<div>
+<label class="section-title">วันที่</label>
+<input type="date" name="date">
+</div>
+<div>
+<label class="section-title">สภาพร่างกายทั่วไปอยู่ในเกณฑ์</label>
+<input name="body_status">
+</div>
+</div>
+<p style="text-indent: 2em; line-height: 1.4;">
+ขอรับรองว่า บุคคลดังกล่าว ไม่เป็นผู้มีร่างกายทุพพลภาพจนไม่สามารถปฏิบัติหน้าที่ได้ 
+ไม่ปรากฏอาการของโรคจิต หรือจิตฟั่นเฟือน หรือปัญญาอ่อน 
+ไม่ปรากฏอาการของการติดยาเสพติดให้โทษ และอาการของโรคพิษสุราเรื้อรัง 
+และไม่ปรากฏอาการและอาการแสดงของโรคต่อไปนี้
+</p>
+<div class="section-title">
+และไม่ปรากฏอาการและอาการแสดงของโรคต่อไปนี้
+</div>
+
+<div>(1) โรคเรื้อนในระยะติดต่อ หรือในระยะที่ปรากฏอาการเป็นที่รังเกียจแก่สังคม</div>
+<div>(2) วัณโรคในระยะอันตราย</div>
+<div>(3) โรคเท้าช้างในระยะที่ปรากฏอาการเป็นที่รังเกียจแก่สังคม</div>
+<div>
+(4) อื่น ๆ (ถ้ามี)
+<input type="text" style="width:70%;" placeholder="ระบุ">
+</div>
+<br>
+
+<div style="margin-top:20px;">
+
+  <div style="margin-bottom:12px;">
+    <label class="section-title"
+           style="display:inline-block; width:260px;">
+      สรุปความคิดเห็นแพทย์
+    </label>
+
+    <input name="opinion"
+      type="text"
+      style="width:58%;
+             border:2px solid #555;
+             border-radius:8px;
+             padding:8px 12px;
+             vertical-align:middle;">
+  </div>
+
+  <div>
+    <label class="section-title"
+           style="display:inline-block; width:260px;">
+      ลงชื่อแพทย์ผู้ตรวจร่างกาย
+    </label>
+
+    <input name="doctorSign"
+      type="text"
+      style="width:45%;
+             border:2px solid #555;
+             border-radius:8px;
+             padding:8px 12px;
+             vertical-align:middle;">
+  </div>
+
+</div>
+
+
+<div class="note">
+  <div class="section-title">หมายเหตุ</div>
+  <div>(1) ต้องเป็นแพทย์ซึ่งได้ขึ้นทะเบียนรับใบอนุญาตประกอบวิชาชีพเวชกรรม</div>
+  <div>(2) ให้แสดงว่าเป็นผู้มีร่างกายสมบูรณ์เพียงใด ใบรับรองแพทย์ฉบับนี้ให้ใช้ได้ 1 เดือนนับแต่วันที่ตรวจร่างกาย</div>
+  <div>(3) คำรับรองนี้เป็นการตรวจวินิจฉัยเบื้องต้น</div>
+  <div>
+    แบบฟอร์มนี้ได้รับการรับรองจากมติคณะกรรมการแพทยสภาในการประชุมครั้งที่ 4/2561
+    วันที่ 19 เมษายน 2561
+  </div>
+</div>
+<button type="button" class="save-btn" onclick="saveEdit()">💾 บันทึกการแก้ไข</button>
+<button type="button" class="print-btn" onclick="printCert()">🖨️ พิมพ์ใบรับรองแพทย์</button>
+
+</form>
+
+</div>
+
+<script>
+/* ================= LOAD DATA ================= */
+const index = localStorage.getItem("editIndex");
+const records = JSON.parse(localStorage.getItem("certificateRecords")) || [];
+const data = records[index];
+
+if(!data){
+  alert("ไม่พบข้อมูล");
+  location.href="/medical_certificate/register";
+}
+
+/* ===== เติมข้อมูล PART 1 ===== */
+Object.keys(data).forEach(k=>{
+  const el = document.querySelector(`[name="${k}"]`);
+  if(!el) return;
+
+  if(el.type === "radio"){
+    document.querySelectorAll(`[name="${k}"]`)
+      .forEach(r=>r.checked = r.value === data[k]);
+  }else{
+    el.value = data[k];
+  }
+});
+
+/* ================= SAVE EDIT ================= */
+function saveEdit(){
+  const form = document.querySelectorAll("input, textarea, select");
+  const updated = {};
+
+  form.forEach(el=>{
+    if(el.type === "radio"){
+      if(el.checked) updated[el.name] = el.value;
+    }else{
+      updated[el.name] = el.value;
+    }
+  });
+
+  records[index] = {
+    ...records[index],
+    ...updated
+  };
+
+  localStorage.setItem("certificateRecords", JSON.stringify(records));
+  alert("✔ แก้ไขข้อมูลเรียบร้อย");
+  location.href="/medical_certificate/register";
+}
+
+/* ================= TAB ================= */
+function showPart(p){
+  document.getElementById("part1").classList.add("hide");
+  document.getElementById("part2").classList.add("hide");
+  document.getElementById("part"+p).classList.remove("hide");
+}
+function printCert(){
+  // แสดงทั้ง 2 ส่วนก่อนพิมพ์
+  document.getElementById("part1").classList.remove("hide");
+  document.getElementById("part2").classList.remove("hide");
+
+  window.print();
+}
+</script>
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    © 2025 Safety Officer, CPF Khon Kaen Feedmill
+</div>
+</body>
+</html>

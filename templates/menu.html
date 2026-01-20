@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เมนูหลัก</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: 'Sarabun', sans-serif;
+            background:#f4f6f8;
+            margin:0;
+            padding:0;
+        }
+
+        /* ================= HEADER ================= */
+        .header{
+            width:100%;
+            background:#ffffff;
+            border-bottom:1px solid #e0e0e0;
+            padding:14px 40px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .header-left{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-size:20px;
+            font-weight:700;
+            color:#5b2c83;
+        }
+
+        .header-left i{
+            font-size:26px;
+        }
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:16px;
+            font-size:14px;
+        }
+
+        .logout-btn{
+            background:#ff6b6b;
+            color:#fff;
+            padding:8px 16px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+        }
+
+        /* ================= MAIN ================= */
+        .container{
+            max-width:1500px;
+            background:#ffffff;
+            margin:40px auto;
+            padding:40px;
+            border-radius:14px;
+            box-shadow:0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .menu-title{
+            display:inline-block;
+            background:#A29BFE;
+            color:#fff;
+            padding:14px 40px;
+            border-radius:14px;
+            font-size:26px;
+            font-weight:700;
+            box-shadow:0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .menu-container{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:30px;
+            max-width:1200px;
+            margin:auto;
+        }
+
+        .menu-item{
+            height:230px;
+            background:linear-gradient(135deg,#409ef0 0%,#90CAF9 100%);
+            border-radius:16px;
+            color:#fff;
+            text-decoration:none;
+
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+
+            font-size:22px;
+            font-weight:600;
+            box-shadow:0 6px 18px rgba(0,0,0,0.2);
+            transition:0.3s;
+        }
+
+        .menu-item i{
+            font-size:64px;
+            margin-bottom:16px;
+        }
+
+        .menu-item:hover{
+            transform:translateY(-6px);
+            box-shadow:0 10px 25px rgba(0,0,0,0.25);
+        }
+
+        /* ================= FOOTER ================= */
+        .footer{
+            width:100%;
+            background:#dcdcdc;
+            text-align:center;
+            padding:18px;
+            font-size:14px;
+            color:#555;
+            margin-top:60px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-left">
+        <i class="fa-solid fa-stethoscope"></i>
+        ห้องพยาบาล CPF ขอนแก่น
+    </div>
+
+    <div class="header-right">
+        ผู้ดูแล (admin) | หน่วยงาน Safety
+        <a href="/logout" class="logout-btn">ออก</a>
+    </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="container">
+
+    <h2>
+        <span class="menu-title">ห้องพยาบาล CPF ขอนแก่น</span>
+    </h2>
+
+    <div class="menu-container">
+
+        <a href="/medicine_type" class="menu-item">
+            <i class="fa-solid fa-pills"></i>
+            ทะเบียนยาและเวชภัณฑ์
+        </a>
+
+        <a href="/treatment_menu" class="menu-item">
+            <i class="fa-solid fa-notes-medical"></i>
+            ทะเบียนการรักษา
+        </a>
+
+        <a href="/waste" class="menu-item">
+            <i class="fa-solid fa-trash-can"></i>
+            ขยะติดเชื้อ
+        </a>
+
+        <a href="/dashboard" class="menu-item">
+            <i class="fa-solid fa-chart-line"></i>
+            Dashboard
+        </a>
+
+        <a href="/medical_certificate" class="menu-item">
+            <i class="fa-solid fa-file-medical"></i>
+            ใบรับรองแพทย์
+        </a>
+
+        {% if role == 'admin' %}
+        <a href="/users" class="menu-item">
+            <i class="fa-solid fa-user-gear"></i>
+            จัดการผู้ใช้งาน
+        </a>
+        {% endif %}
+
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    © 2025 Safety Officer, CPF Khon Kaen Feedmill
+</div>
+
+</body>
+</html>

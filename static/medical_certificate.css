@@ -1,0 +1,127 @@
+/* ===============================
+   พื้นฐานหน้าเว็บ
+================================ */
+body {
+  background: #eaeaea;
+  font-family: "TH Sarabun New", Tahoma, sans-serif;
+  font-size: 22px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   กล่องเอกสาร
+================================ */
+.paper,
+.container {
+  background: white;
+  width: 850px;
+  margin: 30px auto;
+  padding: 40px;
+  border-radius: 8px;
+  position: relative; /* ⭐ สำคัญสำหรับปุ่มกลับเมนู */
+}
+
+/* ===============================
+   หัวข้อ
+================================ */
+h2,
+h3 {
+  text-align: center;
+}
+
+/* ===============================
+   ฟอร์ม
+================================ */
+input,
+textarea,
+select {
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* ===============================
+   ปุ่มแท็บ
+================================ */
+.tab,
+.tab-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tab button,
+.tab-buttons button {
+  padding: 10px 25px;
+  margin: 5px;
+  border: none;
+  background: #0056b3;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ===============================
+   ซ่อน/แสดง
+================================ */
+.hide {
+  display: none;
+}
+
+/* ===============================
+   ✅ ปุ่มกลับเมนู (เหมือนหน้าขยะติดเชื้อ)
+================================ */
+.back-menu {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #28a745;
+  color: white !important;
+  padding: 4px 10px;
+  font-size: 13px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.back-menu:hover {
+  background: #218838;
+}
+
+/* ===============================
+   โหมดพิมพ์
+================================ */
+@media print {
+  body {
+    background: white;
+  }
+
+  .tab,
+  .tab-buttons,
+  button,
+  .back-menu {
+    display: none;
+  }
+
+  .paper,
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hide {
+    display: block;
+  }
+}
+
+/* ===============================
+   ตั้งค่าหน้ากระดาษ
+================================ */
+@page {
+  size: A4;
+  margin: 2cm;
+}

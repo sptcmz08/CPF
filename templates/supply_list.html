@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>รายการเวชภัณฑ์</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{
+  box-sizing:border-box;
+}
+
+.header{
+  font-size:16px;
+}
+
+body{
+  font-family:'Sarabun',sans-serif;
+  background:#f4f6f8;
+  margin:0;
+}
+
+.container{
+  font-size:24px;
+}
+        /* ================= HEADER ================= */
+        .header{
+            width:100%;
+            background:#ffffff;
+            border-bottom:1px solid #e0e0e0;
+            padding:14px 40px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .header-left{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-size:20px;
+            font-weight:700;
+            color:#5b2c83;
+        }
+
+        .header-left i{
+            font-size:26px;
+        }
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:16px;
+            font-size:14px;
+        }
+
+        .logout-btn{
+            background:#ff6b6b;
+            color:#fff;
+            padding:8px 16px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+        }
+
+/* ===== container ===== */
+.container{
+    max-width:1500px;
+    background:#ffffff;
+    margin:40px auto;
+    padding:40px;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    position: relative;
+}
+
+/* ===== ปุ่มกลับ ===== */
+.back-menu{
+    position:absolute;
+    top:15px;
+    left:15px;
+    background:#28a745;
+    color:#fff;
+    padding:8px 14px;
+    font-size:14px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:600;
+}
+.back-menu:hover{ background:#218838; }
+
+/* ===== หัวข้อ ===== */
+h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:32px;
+    font-weight:700;
+}
+
+/* ===== layout ===== */
+.list-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap:30px;
+}
+
+/* ===== การ์ดเวชภัณฑ์ ===== */
+.box{
+    height:120px;
+    border-radius:16px;
+    text-decoration:none;
+    color:#03396c;
+    font-size:24px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background: linear-gradient(135deg,#2d8fe2 0%,#8fd3f4 100%);
+    box-shadow:0 6px 18px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+.box:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+        /* ================= FOOTER ================= */
+        .footer{
+            width:100%;
+            background:#dcdcdc;
+            text-align:center;
+            padding:18px;
+            font-size:14px;
+            color:#555;
+            margin-top:60px;
+        }
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-left">
+        <i class="fa-solid fa-stethoscope"></i>
+        ห้องพยาบาล CPF ขอนแก่น
+    </div>
+
+    <div class="header-right">
+        ผู้ดูแล (admin) | หน่วยงาน Safety
+        <a href="/logout" class="logout-btn">ออก</a>
+    </div>
+</div>
+
+<div class="container">
+
+<a href="/medicine_type" class="back-menu">⬅ กลับ</a>
+
+<h2>รายการเวชภัณฑ์</h2>
+
+{% if supplies|length == 0 %}
+  <p style="color:red; font-size:24px;">ยังไม่มีข้อมูลเวชภัณฑ์</p>
+{% endif %}
+
+<div class="list-grid">
+{% for s in supplies %}
+  <a href="/medicine/{{ s.id }}" class="box">{{ s.name }}</a>
+{% endfor %}
+</div>
+
+</div>
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    © 2025 Safety Officer, CPF Khon Kaen Feedmill
+</div>
+</body>
+</html>

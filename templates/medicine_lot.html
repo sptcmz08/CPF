@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>รายละเอียด {{ med.name }}</title>
+
+  <!-- Google Font : Sarabun -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{
+  box-sizing:border-box;
+}
+
+.header{
+  font-size:16px;
+}
+
+body{
+  font-family:'Sarabun',sans-serif;
+  background:#f4f6f8;
+  margin:0;
+}
+
+.container{
+  font-size:24px;
+}
+        /* ================= HEADER ================= */
+        .header{
+            width:100%;
+            background:#ffffff;
+            border-bottom:1px solid #e0e0e0;
+            padding:14px 40px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .header-left{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-size:20px;
+            font-weight:700;
+            color:#5b2c83;
+        }
+
+        .header-left i{
+            font-size:26px;
+        }
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:16px;
+            font-size:14px;
+        }
+
+        .logout-btn{
+            background:#ff6b6b;
+            color:#fff;
+            padding:8px 16px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+        }
+
+    .container{
+      max-width:1500px;
+      background:#ffffff;
+      margin:40px auto;
+      padding:40px;
+      border-radius:16px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    }
+
+    /* ===== ชื่อยา / เวชภัณฑ์ ===== */
+    .med-title{
+      text-align:center;
+      font-size:32px; /* ข้อ 4 */
+      font-weight:700;
+      margin-bottom:30px;
+    }
+
+    h3{
+      font-size:26px;
+      margin-bottom:15px;
+    }
+
+    label{
+      font-weight:600;
+      display:block;
+      margin-top:18px;
+    }
+
+    /* ===== ช่องกรอกข้อมูล (ข้อ 2) ===== */
+    input{
+      width:100%;
+      padding:12px;
+      font-size:24px;
+      margin-top:6px;
+      box-sizing:border-box;
+      border-radius:10px;
+      border:1.5px solid #d6e2ec;
+      background:#fbfdff;
+    }
+
+    input:focus{
+      outline:none;
+      border-color:#7bb7e8;
+      background:#ffffff;
+    }
+
+    button{
+      font-size:24px;
+      padding:12px 30px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      background:#4a90e2;
+      color:white;
+      margin-top:20px;
+    }
+
+    button:hover{
+      background:#357abd;
+    }
+
+    .back-menu{
+      display:inline-block;
+      margin-bottom:20px;
+      background:#28a745;
+      color:#ffffff;
+      padding:8px 14px;
+      font-size:16px;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:600;
+       box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .back-menu:hover{
+     background:#218838;
+    }
+
+
+    /* ===== กรอบเพิ่ม Lot (ข้อ 1) ===== */
+    .add-lot-box{
+      background:linear-gradient(135deg, #daf8ffff, #a9eeffff);
+      padding:30px;
+      border-radius:18px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.2);
+      color:#000;
+    }
+
+    /* ===== Lot ที่มีอยู่ ===== */
+    .lot-box{
+      background:#ffffff;
+      border-radius:14px;
+      padding:20px 24px;
+      margin-bottom:20px;
+      box-shadow:0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    /* ===== ป้าย LOT-1 / LOT-n (ข้อ 3) ===== */
+    .lot-header{
+      display:inline-block;
+      background:#ffe066;
+      color:#000;
+      font-weight:700;
+      padding:4px 12px;
+      border-radius:8px;
+      margin-bottom:12px;
+    }
+
+    .delete-btn{
+      background:#e74c3c;
+      margin-top:15px;
+    }
+
+    .delete-btn:hover{
+      background:#c0392b;
+    }
+
+    hr{
+      margin:40px 0;
+      border:none;
+      border-top:1px solid #ddd;
+    }
+
+    .section-title{
+  display:inline-block;
+  background:linear-gradient(135deg, #d9fbe3, #b8f2d2);
+  color:#1f6f43;
+  padding:10px 22px;
+  border-radius:14px;
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+        /* ================= FOOTER ================= */
+        .footer{
+            width:100%;
+            background:#dcdcdc;
+            text-align:center;
+            padding:18px;
+            font-size:14px;
+            color:#555;
+            margin-top:60px;
+        }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-left">
+        <i class="fa-solid fa-stethoscope"></i>
+        ห้องพยาบาล CPF ขอนแก่น
+    </div>
+
+    <div class="header-right">
+        ผู้ดูแล (admin) | หน่วยงาน Safety
+        <a href="/logout" class="logout-btn">ออก</a>
+    </div>
+</div>
+
+<div class="container">
+
+  <!-- ปุ่มย้อนกลับ -->
+  <a href="javascript:history.back()" class="back-menu">⬅ ย้อนกลับ</a>
+
+  <!-- ชื่อยา -->
+  <div class="med-title">
+    {{ med.name }}
+  </div>
+
+  <!-- ===== เพิ่ม LOT ===== -->
+  <hr>
+  <div class="section-title">➕ เพิ่ม Lot ยา / เวชภัณฑ์</div>
+
+  <div class="add-lot-box">
+    <form method="post" action="/medicine/{{ med.id }}/add_lot">
+      <label>วันหมดอายุ</label>
+      <input type="date" name="expire_date" required>
+
+      <label>จำนวนที่เพิ่ม</label>
+      <input type="number" name="qty" min="1" required>
+
+      <label>ราคา / Lot (บาท)</label>
+      <input type="number" name="price" min="1" required>
+
+      <button type="submit">💾 บันทึก Lot</button>
+    </form>
+  </div>
+
+  <!-- ===== แสดง LOT ===== -->
+  <hr>
+  <div class="section-title">📦 Lot ที่มีอยู่</div>
+
+  {% if lots %}
+    {% for lot in lots %}
+      <div class="lot-box">
+        <div class="lot-header">{{ lot.lot_name }}</div>
+        <div>วันหมดอายุ: {{ lot.expire_date }}</div>
+        <div>จำนวนทั้งหมด: {{ lot.qty_total }}</div>
+        <div>คงเหลือ: {{ lot.qty_remain }}</div>
+        <div>ราคา / Lot: {{ "%.2f"|format(lot.price_per_lot) }} บาท</div>
+        <div>ราคา / หน่วย: {{ "%.2f"|format(lot.price_per_unit) }} บาท</div>
+
+        <form method="post" action="/lot/{{ lot.id }}/delete"
+              onsubmit="return confirm('ยืนยันการลบ Lot นี้ ?');">
+          <button class="delete-btn">🗑 ลบ Lot</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="color:#999;">ยังไม่มี Lot ของยานี้</p>
+  {% endif %}
+
+</div>
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    © 2025 Safety Officer, CPF Khon Kaen Feedmill
+</div>
+</body>
+</html>

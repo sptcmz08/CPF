@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>บันทึกขยะติดเชื้อ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{
+  box-sizing:border-box;
+}
+
+.header{
+  font-size:16px;
+}
+
+body{
+  font-family:'Sarabun',sans-serif;
+  background:#f4f6f8;
+  margin:0;
+}
+
+.container{
+  font-size:24px;
+}
+        /* ================= HEADER ================= */
+        .header{
+            width:100%;
+            background:#ffffff;
+            border-bottom:1px solid #e0e0e0;
+            padding:14px 40px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .header-left{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-size:20px;
+            font-weight:700;
+            color:#5b2c83;
+        }
+
+        .header-left i{
+            font-size:26px;
+        }
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:16px;
+            font-size:14px;
+        }
+
+        .logout-btn{
+            background:#ff6b6b;
+            color:#fff;
+            padding:8px 16px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+        }
+
+.container{
+  max-width:1500px;
+  background:#ffffff;
+  margin:40px auto;
+  padding:40px;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.25);
+  position: relative;
+}
+
+.top-bar{
+  position:absolute;
+  top:20px;
+  left:20px;
+}
+
+.back-btn{
+  background:#28a745;
+  color:white;
+  padding:10px 20px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+.back-btn:hover{ background:#218838; }
+
+h2{
+  text-align:center;
+  font-size:32px;
+  margin-bottom:30px;
+}
+
+label{
+  font-weight:600;
+  display:block;
+  margin-top:20px;
+}
+
+input, select{
+  width:100%;
+  padding:14px;
+  margin-top:6px;
+  font-size:22px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  background:#f9fbfd;
+}
+
+button{
+  width:100%;
+  padding:16px;
+  margin-top:35px;
+  font-size:24px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#7ed6a3;
+  color:#145a32;
+}
+button:hover{ background:#6bcf95; }
+            /* ================= FOOTER ================= */
+        .footer{
+            width:100%;
+            background:#dcdcdc;
+            text-align:center;
+            padding:18px;
+            font-size:14px;
+            color:#555;
+            margin-top:60px;
+        }
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-left">
+        <i class="fa-solid fa-stethoscope"></i>
+        ห้องพยาบาล CPF ขอนแก่น
+    </div>
+
+    <div class="header-right">
+        ผู้ดูแล (admin) | หน่วยงาน Safety
+        <a href="/logout" class="logout-btn">ออก</a>
+    </div>
+</div>
+
+<div class="container">
+
+  <div class="top-bar">
+    <a href="/waste" class="back-btn">⬅ ย้อนกลับ</a>
+  </div>
+
+  <h2>บันทึกขยะติดเชื้อ</h2>
+
+  <form id="infectForm" method="POST">
+
+    <label>ชื่อผู้รับกำจัด</label>
+    <input name="company" required>
+
+    <label>ปริมาณ (กิโลกรัม)</label>
+    <input type="number" step="0.01" name="amount">
+
+    <label>วันที่ทิ้ง</label>
+    <input type="date" name="date">
+
+    <label>เวลา</label>
+    <input type="time" name="time">
+
+    <label>สถานที่</label>
+    <select name="place" required>
+      <option value="">-- เลือกสถานที่ --</option>
+      <option>ห้องพยาบาล</option>
+      <option>ป้อมรปภ</option>
+    </select>
+
+    <label>แนบรูป</label>
+    <input type="file" id="imageFile" accept="image/*">
+    <input type="hidden" name="photo" id="photoInput">
+
+    <div style="text-align:center;margin-top:15px;">
+      <img id="preview" style="max-width:300px;border-radius:12px;display:none;">
+    </div>
+
+    <button type="submit">💾 บันทึก</button>
+  </form>
+
+</div>
+
+<script>
+document.getElementById("infectForm").addEventListener("submit", function(e){
+  const file = document.getElementById("imageFile").files[0];
+  if(!file) return;
+
+  e.preventDefault();
+  const reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById("photoInput").value = reader.result;
+    this.submit();
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById("imageFile").addEventListener("change", function(){
+  const file = this.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = document.getElementById("preview");
+    img.src = reader.result;
+    img.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+});
+</script>
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+    © 2025 Safety Officer, CPF Khon Kaen Feedmill
+</div>
+</body>
+</html>
