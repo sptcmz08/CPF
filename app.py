@@ -259,8 +259,12 @@ def medicine_group():
 # MEDICINE LIST
 # ============================================
 
+from urllib.parse import unquote
+
 @app.route("/medicine/list/<group>")
 def medicine_list(group):
+    # ถอดรหัส URL (เช่น %E0%B8%... -> ภาษาไทย)
+    group = unquote(group)
     # เปลี่ยนมาดึงทั้งหมดแล้ว Filter ใน Python แทน (แก้ปัญหา case sensitive / วรรค)
     res = gas_list("medicine", 5000)
     meds = []
