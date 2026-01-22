@@ -1163,6 +1163,103 @@ def medical_certificate_register():
     records = res.get("data", []) if res.get("ok") else []
     return render_template("certificate_register.html", records=records)
 
+@app.route("/medical_certificate/edit/<int:id>")
+@login_required
+def medical_certificate_edit_with_id(id):
+    return render_template("certificate_edit.html", record_id=id)
+
+# ============================================
+# MEDICAL CERTIFICATE API
+# ============================================
+
+@app.route("/api/medical_certificate/add", methods=["POST"])
+@login_required
+def api_medical_certificate_add():
+    """Add new medical certificate"""
+    data = request.json
+    
+    payload = {
+        "title": data.get("title", "").strip(),
+        "fullname": data.get("fullname", "").strip(),
+        "address": data.get("address", "").strip(),
+        "disease": data.get("disease", "").strip(),
+        "disease_detail": data.get("disease_detail", "").strip(),
+        "accident": data.get("accident", "").strip(),
+        "accident_detail": data.get("accident_detail", "").strip(),
+        "hospital": data.get("hospital", "").strip(),
+        "hospital_detail": data.get("hospital_detail", "").strip(),
+        "other_history": data.get("other_history", "").strip(),
+        "requester_sign": data.get("requester_sign", "").strip(),
+        "requester_date": data.get("requester_date", "").strip(),
+        "hospital_name": data.get("hospital_name", "").strip(),
+        "weight": data.get("weight", "").strip(),
+        "height": data.get("height", "").strip(),
+        "bp": data.get("bp", "").strip(),
+        "pulse": data.get("pulse", "").strip(),
+        "body_status": data.get("body_status", "").strip(),
+        "body_detail": data.get("body_detail", "").strip(),
+        "work_result": data.get("work_result", "").strip(),
+        "doctor_name": data.get("doctor_name", "").strip()
+    }
+    
+    res = gas_append("medical_certificate", payload)
+    if res.get("ok"):
+        return jsonify({"success": True, "id": res.get("id")})
+    return jsonify({"success": False, "message": res.get("message", "Failed to save")})
+
+@app.route("/api/medical_certificate/<int:id>")
+@login_required
+def api_medical_certificate_get(id):
+    """Get medical certificate by ID"""
+    res = gas_get("medical_certificate", id)
+    if res.get("ok") and res.get("data"):
+        return jsonify({"success": True, "data": res["data"]})
+    return jsonify({"success": False, "message": "Not found"})
+
+@app.route("/api/medical_certificate/edit/<int:id>", methods=["POST"])
+@login_required
+def api_medical_certificate_edit(id):
+    """Edit medical certificate"""
+    data = request.json
+    
+    payload = {
+        "title": data.get("title", "").strip(),
+        "fullname": data.get("fullname", "").strip(),
+        "address": data.get("address", "").strip(),
+        "disease": data.get("disease", "").strip(),
+        "disease_detail": data.get("disease_detail", "").strip(),
+        "accident": data.get("accident", "").strip(),
+        "accident_detail": data.get("accident_detail", "").strip(),
+        "hospital": data.get("hospital", "").strip(),
+        "hospital_detail": data.get("hospital_detail", "").strip(),
+        "other_history": data.get("other_history", "").strip(),
+        "requester_sign": data.get("requester_sign", "").strip(),
+        "requester_date": data.get("requester_date", "").strip(),
+        "hospital_name": data.get("hospital_name", "").strip(),
+        "weight": data.get("weight", "").strip(),
+        "height": data.get("height", "").strip(),
+        "bp": data.get("bp", "").strip(),
+        "pulse": data.get("pulse", "").strip(),
+        "body_status": data.get("body_status", "").strip(),
+        "body_detail": data.get("body_detail", "").strip(),
+        "work_result": data.get("work_result", "").strip(),
+        "doctor_name": data.get("doctor_name", "").strip()
+    }
+    
+    res = gas_update("medical_certificate", id, payload)
+    if res.get("ok"):
+        return jsonify({"success": True})
+    return jsonify({"success": False, "message": res.get("message", "Failed to update")})
+
+@app.route("/api/medical_certificate/delete/<int:id>", methods=["DELETE"])
+@login_required
+def api_medical_certificate_delete(id):
+    """Delete medical certificate"""
+    res = gas_delete("medical_certificate", id)
+    if res.get("ok"):
+        return jsonify({"success": True})
+    return jsonify({"success": False, "message": res.get("message", "Failed to delete")})
+
 # ============================================
 # RUN
 # ============================================
