@@ -722,37 +722,38 @@
         return el ? el.value : fallback;
       }
 
+      // เก็บข้อมูลส่วนที่ 1 ชั่วคราวใน memory (ไม่ใช่ localStorage)
+      let tempPart1Data = null;
+
       // ================== ⭐ บันทึกส่วนที่ 1 ==================
       document.getElementById("savePart1").addEventListener("click", function () {
 
         const p1 = document.getElementById("part1");
 
-        const part1Data = {
-          prefix: getVal(p1, ["select"]),
+        tempPart1Data = {
+          title: getVal(p1, ["select"]),  // คำนำหน้า -> title
           fullname: getVal(p1, ['[name="fullname"]']),
           address: getVal(p1, ['[name="address"]', "textarea"]),
-          citizenId: getVal(p1, ['[name="citizenId"]']),
-          signer: getVal(p1, ['[name="signer"]']),
-          date: getVal(p1, ['[name="date"]']),
-
-          // ⭐ ประวัติสุขภาพ
+          // citizenId ไม่มีใน Google Sheet schema เดิม จะเก็บไว้ใน address หรือ other_history
           disease: getRadio(p1, "disease", ""),
+          disease_detail: getVal(p1, ['[name="disease_detail"]']),
           accident: getRadio(p1, "accident", ""),
-          hospital_history: getRadio(p1, "hospital_history", ""),
-          other_history: getVal(p1, ['[name="other_history"]'])
+          accident_detail: getVal(p1, ['[name="accident_detail"]']),
+          hospital: getRadio(p1, "hospital_history", ""),  // hospital_history -> hospital
+          hospital_detail: getVal(p1, ['[name="hospital_history_detail"]']),
+          other_history: getVal(p1, ['[name="other_history"]']),
+          requester_sign: getVal(p1, ['[name="signer"]']),  // signer -> requester_sign
+          requester_date: getVal(p1, ['[name="date"]'])  // date -> requester_date
         };
-
-        localStorage.setItem("tempCertificate", JSON.stringify(part1Data));
 
         alert("✔ บันทึกส่วนที่ 1 แล้ว — ไปกรอกส่วนที่ 2 ต่อ");
         showPart(2);
       });
 
       // ================== ⭐ บันทึกส่วนที่ 2 ==================
-      document.getElementById("savePart2").addEventListener("click", function () {
+      document.getElementById("savePart2").addEventListener("click", async function () {
 
-        const temp = JSON.parse(localStorage.getItem("tempCertificate"));
-        if (!temp) {
+        if (!tempPart1Data) {
           alert("❌ กรุณาบันทึกส่วนที่ 1 ก่อน");
           showPart(1);
           return;
@@ -762,34 +763,48 @@
 
         const part2Data = {
           doctor_name: getVal(p2, ['[name="doctor_name"]']),
-          exam_detail: getVal(p2, ['[name="exam_detail"]']),
-          result: getVal(p2, ['[name="result"]']),
-          license: getVal(p2, ['[name="license"]']),
-
-          // ✅ จุดสำคัญ: ใช้ exam_date (และมี fallback เผื่อยังมีชื่อเดิม)
-          exam_date: getVal(p2, ['[name="exam_date"]', '[name="date"]']),
-
+          hospital_name: getVal(p2, ['[name="exam_detail"]']),  // exam_detail -> hospital_name (ชื่อโรงพยาบาล/สถานที่ตรวจ)
+          weight: "",  // จะแยกจาก result ถ้าต้องการ
+          height: "",
+          bp: "",
+          pulse: "",
           body_status: getVal(p2, ['[name="body_status"]']),
-          opinion: getVal(p2, ['[name="opinion"]']),
-          doctor_sign: getVal(p2, ['[name="doctorSign"]'])
+          body_detail: getVal(p2, ['[name="opinion"]']),  // opinion -> body_detail
+          work_result: getVal(p2, ['[name="result"]'])  // result -> work_result
         };
 
+        // รวมข้อมูลทั้ง 2 ส่วน
         const finalRecord = {
-          ...temp,
-          ...part2Data,
-          status: "บันทึกแล้ว (พร้อมพิมพ์)",
-          created_at: new Date().toISOString().slice(0, 10)
+          ...tempPart1Data,
+          ...part2Data
         };
 
-        let records = JSON.parse(localStorage.getItem("certificateRecords")) || [];
-        records.push(finalRecord);
-        localStorage.setItem("certificateRecords", JSON.stringify(records));
-        localStorage.removeItem("tempCertificate");
+        // ส่งข้อมูลไป backend API
+        try {
+          const response = await fetch("/api/medical_certificate/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(finalRecord)
+          });
 
-        alert("✔ บันทึกข้อมูลใหม่เรียบร้อย");
-        window.location.href = "/medical_certificate/register";
+          const result = await response.json();
+
+          if (result.success) {
+            alert("✔ บันทึกข้อมูลลง Google Sheets เรียบร้อย");
+            tempPart1Data = null;  // ล้างข้อมูลชั่วคราว
+            window.location.href = "/medical_certificate/register";
+          } else {
+            alert("❌ บันทึกไม่สำเร็จ: " + (result.message || "Unknown error"));
+          }
+        } catch (error) {
+          console.error("Error saving certificate:", error);
+          alert("❌ เกิดข้อผิดพลาดในการบันทึก: " + error.message);
+        }
       });
     </script>
+
 
   </div>
 
