@@ -251,6 +251,21 @@ SYMPTOM_GROUPS = [
 def medicine_type():
     return render_template("medicine_type.html")
 
+@app.route("/supply")
+def supply_list():
+    # ดึงข้อมูลทั้งหมดจาก Sheet 'medicine'
+    res = gas_list("medicine", 5000)
+    supplies = []
+    if res.get("ok"):
+        for m in res.get("data", []):
+            # Clean data
+            m_type = str(m.get("type", "")).strip().lower()
+            # Filter: เอาเฉพาะ type = 'supply'
+            if m_type == "supply":
+                supplies.append(m)
+    
+    return render_template("supply_list.html", supplies=supplies)
+
 @app.route("/medicine/group")
 def medicine_group():
     return render_template("medicine_group.html", groups=SYMPTOM_GROUPS)
