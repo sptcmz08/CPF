@@ -1,121 +1,122 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <title>ทะเบียนยาและเวชภัณฑ์</title>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-*{
-  box-sizing:border-box;
-}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.header{
-  font-size:16px;
-}
+    .header {
+      font-size: 16px;
+    }
 
-body{
-  font-family:'Sarabun',sans-serif;
-  background:#f4f6f8;
-  margin:0;
-}
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+    }
 
-/* ================= HEADER ================= */
-.header{
-    width:100%;
-    background:#ffffff;
-    border-bottom:1px solid #e0e0e0;
-    padding:14px 40px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
+    /* ================= HEADER ================= */
+    .header {
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:20px;
-    font-weight:700;
-    color:#5b2c83;
-}
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #5b2c83;
+    }
 
-.header-left i{
-    font-size:26px;
-}
+    .header-left i {
+      font-size: 26px;
+    }
 
-.header-right{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    font-size:14px;
-}
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+    }
 
-.logout-btn{
-    background:#ff6b6b;
-    color:#fff;
-    padding:8px 16px;
-    border-radius:6px;
-    text-decoration:none;
-    font-weight:600;
-}
+    .logout-btn {
+      background: #ff6b6b;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-/* ===== container (กรอบหลัก) ===== */
-.container{
-    max-width:1500px;                 
-    background:#ffffff;
-    margin:40px auto;
-    padding:40px;
-    border-radius:14px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.25);
-    position: relative;   /* 🔥 อ้างอิงตำแหน่งปุ่ม */
-}
+    /* ===== container (กรอบหลัก) ===== */
+    .container {
+      max-width: 1500px;
+      background: #ffffff;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      position: relative;
+      /* 🔥 อ้างอิงตำแหน่งปุ่ม */
+    }
 
-/* ===== ปุ่มกลับเมนู (เหมือนหน้าขยะติดเชื้อ 100%) ===== */
-.back-menu{
-    position:absolute;
-    top:15px;
-    left:15px;
-    background:#28a745;
-    color:#fff;
-    padding:10px 18px;
-    font-size:18px;
-    font-weight:600;
-    border-radius:8px;
-    text-decoration:none;
-    box-shadow:0 4px 10px rgba(0,0,0,0.25);
-}
+    /* ===== ปุ่มกลับเมนู (เหมือนหน้าขยะติดเชื้อ 100%) ===== */
+    .back-menu {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #28a745;
+      color: #fff;
+      padding: 10px 18px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
 
-/* ================= FOOTER ================= */
-.footer{
-    width:100%;
-    background:#dcdcdc;
-    text-align:center;
-    padding:18px;
-    font-size:14px;
-    color:#555;
-    margin-top:60px;
-}
-</style>
+    /* ================= FOOTER ================= */
+    .footer {
+      width: 100%;
+      background: #dcdcdc;
+      text-align: center;
+      padding: 18px;
+      font-size: 14px;
+      color: #555;
+      margin-top: 60px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
+  <!-- ===== HEADER ===== -->
+  <div class="header">
     <div class="header-left">
-        <i class="fa-solid fa-stethoscope"></i>
-        ห้องพยาบาล CPF ขอนแก่น
+      <i class="fa-solid fa-stethoscope"></i>
+      ห้องพยาบาล CPF ขอนแก่น
     </div>
 
     <div class="header-right">
-        ผู้ดูแล (admin) | หน่วยงาน Safety
-        <a href="/logout" class="logout-btn">ออก</a>
+      {{ session.get('user_name', 'User') }} ({{ session.get('role', 'user') }}) | หน่วยงาน Safety
+      <a href="/logout" class="logout-btn">ออก</a>
     </div>
-</div>
+  </div>
 
-<!-- ===== CONTENT ===== -->
-<div class="container">
+  <!-- ===== CONTENT ===== -->
+  <div class="container">
 
     <!-- ✅ ปุ่มกลับเมนู (ตำแหน่งเดียวกับหน้าขยะติดเชื้อ) -->
     <a href="/menu" class="back-menu">⬅ เมนู</a>
@@ -149,14 +150,15 @@ body{
       {% endfor %}
     </table>
 
-</div>
+  </div>
 
-<script src="{{ url_for('static', filename='main.js') }}"></script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
 
-<!-- ===== FOOTER ===== -->
-<div class="footer">
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
     © 2025 Safety Officer, CPF Khon Kaen Feedmill
-</div>
+  </div>
 
 </body>
+
 </html>
