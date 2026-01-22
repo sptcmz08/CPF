@@ -285,6 +285,7 @@ def medicine_group():
 # ============================================
 
 
+@app.route("/medicine/list/<group>")
 def medicine_list(group):
     # ถอดรหัส URL (เช่น %E0%B8%... -> ภาษาไทย)
     group = unquote(group)
