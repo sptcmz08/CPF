@@ -152,8 +152,16 @@ def test_gas():
 def fix_admin():
     """สร้าง Admin สำรองกรณีเข้าไม่ได้"""
     # 1. ลองค้นหาก่อน
-    search = gas_search("users", "username", "admin")
-    if search.get("ok") and search.get("data") and len(search["data"]) > 0:
+    # search = gas_search("users", "username", "admin")
+    all_users = gas_list("users", 1000)
+    found = False
+    if all_users.get("ok"):
+        for u in all_users.get("data", []):
+            if str(u.get("username", "")).lower() == "admin":
+                found = True
+                break
+                
+    if found:
         return "<h1>Admin user already exists!</h1> <p>User: admin / Pass: 111</p> <a href='/'>Go to Login</a>"
     
     # 2. ถ้าไม่มี ให้สร้างใหม่
@@ -608,9 +616,18 @@ def treatment_list():
 
 @app.route("/api/medicine_list")
 def api_medicine_list():
-    mtype = request.args.get("type", "")
-    res = gas_search("medicine", "type", mtype)
-    rows = res.get("data", []) if res.get("ok") else []
+    mtype = request.args.get("type", "").strip().lower()
+    # ใช้ gas_list แล้ว filter
+    res = gas_list("medicine", 2000)
+    rows = []
+    if res.get("ok"):
+        for r in res.get("data", []):
+            cur_type = str(r.get("type", "")).strip().lower()
+            if not mtype: # ถ้าไม่ส่ง type มา เอาทั้งหมด
+                rows.append(r)
+            elif cur_type == mtype:
+                rows.append(r)
+                
     return jsonify([{"id": r.get("id"), "name": r.get("name")} for r in rows])
 
 @app.route("/api/medicine_id")
@@ -628,18 +645,22 @@ def api_medicine_id():
 @app.route("/api/medicine_lots")
 def api_medicine_lots():
     medicine_id = request.args.get("medicine_id", "")
-    res = gas_search("medicine_lot", "medicine_id", medicine_id)
+    # res = gas_search("medicine_lot", "medicine_id", medicine_id)
+    # ใช้ gas_list แล้ว filter
+    all_lots = gas_list("medicine_lot", 5000)
     
     lots = []
-    if res.get("ok"):
-        for r in res.get("data", []):
-            if int(r.get("qty_remain", 0)) > 0:
-                lots.append({
-                    "id": r.get("id"),
-                    "name": r.get("lot_name"),
-                    "remain": r.get("qty_remain"),
-                    "price": r.get("price_per_unit")
-                })
+    if all_lots.get("ok"):
+        for r in all_lots.get("data", []):
+            # เช็ค medicine_id
+            if str(r.get("medicine_id", "")) == str(medicine_id):
+                if int(r.get("qty_remain", 0)) > 0:
+                    lots.append({
+                        "id": r.get("id"),
+                        "name": r.get("lot_name"),
+                        "remain": r.get("qty_remain"),
+                        "price": r.get("price_per_unit")
+                    })
     
     return jsonify({"lots": lots})
 
