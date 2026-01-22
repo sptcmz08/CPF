@@ -533,8 +533,13 @@
             <input name="exam_detail">
           </div>
           <div>
-            <label class="section-title">ผลการตรวจ</label>
-            <input name="result">
+            <label class="section-title">ผลการตรวจร่างกาย</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <input name="weight" type="text" placeholder="น้ำหนัก (กก.)" style="width: 120px;">
+              <input name="height" type="text" placeholder="ส่วนสูง (ซม.)" style="width: 120px;">
+              <input name="bp" type="text" placeholder="ความดัน (mmHg)" style="width: 140px;">
+              <input name="pulse" type="text" placeholder="ชีพจร (ครั้ง/นาที)" style="width: 140px;">
+            </div>
           </div>
           <div>
             <label class="section-title">เลขที่ใบประกอบวิชาชีพ</label>
@@ -656,9 +661,13 @@
           // Part 2 fields
           doctor_name: "doctor_name",
           hospital_name: "exam_detail",  // hospital_name ใน DB -> exam_detail ใน form
+          weight: "weight",
+          height: "height",
+          bp: "bp",
+          pulse: "pulse",
           body_status: "body_status",
           body_detail: "opinion",  // body_detail ใน DB -> opinion ใน form
-          work_result: "result"  // work_result ใน DB -> result ใน form
+          work_result: ""  // work_result -> result (ยกเลิกใช้แล้ว)
         };
 
         Object.keys(data).forEach(dbKey => {
@@ -716,11 +725,15 @@
           requester_sign: getVal(p1, '[name="signer"]'),
           requester_date: getVal(p1, '[name="date"]'),
           // Part 2
+          weight: getVal(p2, '[name="weight"]'),
+          height: getVal(p2, '[name="height"]'),
+          bp: getVal(p2, '[name="bp"]'),
+          pulse: getVal(p2, '[name="pulse"]'),
           doctor_name: getVal(p2, '[name="doctor_name"]'),
           hospital_name: getVal(p2, '[name="exam_detail"]'),
           body_status: getVal(p2, '[name="body_status"]'),
           body_detail: getVal(p2, '[name="opinion"]'),
-          work_result: getVal(p2, '[name="result"]')
+          work_result: "" // เลิกใช้ result รวม
         };
 
         try {
