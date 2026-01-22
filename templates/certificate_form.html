@@ -596,8 +596,13 @@
             </div>
 
             <div class="doctor-row">
-              <label class="section-title">ผลการตรวจ</label>
-              <input name="result" type="text" placeholder="น้ำหนัก / ส่วนสูง / ความดัน / ชีพจร">
+              <label class="section-title">ผลการตรวจร่างกาย</label>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input name="weight" type="text" placeholder="น้ำหนัก (กก.)" style="width: 120px;">
+                <input name="height" type="text" placeholder="ส่วนสูง (ซม.)" style="width: 120px;">
+                <input name="bp" type="text" placeholder="ความดัน (mmHg)" style="width: 140px;">
+                <input name="pulse" type="text" placeholder="ชีพจร (ครั้ง/นาที)" style="width: 140px;">
+              </div>
             </div>
 
           </div>
@@ -764,13 +769,13 @@
         const part2Data = {
           doctor_name: getVal(p2, ['[name="doctor_name"]']),
           hospital_name: getVal(p2, ['[name="exam_detail"]']),  // exam_detail -> hospital_name (ชื่อโรงพยาบาล/สถานที่ตรวจ)
-          weight: "",  // จะแยกจาก result ถ้าต้องการ
-          height: "",
-          bp: "",
-          pulse: "",
+          weight: getVal(p2, ['[name="weight"]']),
+          height: getVal(p2, ['[name="height"]']),
+          bp: getVal(p2, ['[name="bp"]']),
+          pulse: getVal(p2, ['[name="pulse"]']),
           body_status: getVal(p2, ['[name="body_status"]']),
           body_detail: getVal(p2, ['[name="opinion"]']),  // opinion -> body_detail
-          work_result: getVal(p2, ['[name="result"]'])  // result -> work_result
+          work_result: ""  // result -> work_result (ยกเลิกใช้หรือปล่อยว่าง)
         };
 
         // รวมข้อมูลทั้ง 2 ส่วน
