@@ -1151,10 +1151,6 @@ def medical_certificate_form():
     
     return render_template("certificate_form.html")
 
-@app.route("/medical_certificate/edit")
-@login_required
-def medical_certificate_edit():
-    return render_template("certificate_edit.html")
 
 @app.route("/medical_certificate/register")
 @login_required
