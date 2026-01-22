@@ -3,6 +3,7 @@ import requests
 import json
 from datetime import datetime
 from functools import wraps
+from urllib.parse import unquote
 
 # ---------------- APP ----------------
 app = Flask(__name__)
@@ -274,9 +275,7 @@ def medicine_group():
 # MEDICINE LIST
 # ============================================
 
-from urllib.parse import unquote
 
-@app.route("/medicine/list/<group>")
 def medicine_list(group):
     # ถอดรหัส URL (เช่น %E0%B8%... -> ภาษาไทย)
     group = unquote(group)
@@ -385,23 +384,7 @@ def delete_lot(lot_id):
     
     return redirect(f"/medicine/{med_id}")
 
-# ============================================
-# SUPPLY LIST
-# ============================================
 
-@app.route("/supply")
-def supply_list():
-    # เปลี่ยนมาใช้ gas_list แล้ว filter ใน Python
-    res = gas_list("medicine", 5000)
-    supplies = []
-    if res.get("ok"):
-        for m in res.get("data", []):
-            # เช็ค type เป็น supply (normalize case)
-            m_type = str(m.get("type", "")).strip().lower()
-            if m_type == "supply":
-                supplies.append(m)
-                
-    return render_template("supply_list.html", supplies=supplies)
 
 # ============================================
 # RECORD (เพิ่มยา/เวชภัณฑ์)
