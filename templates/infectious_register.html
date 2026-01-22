@@ -1,224 +1,227 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
-<meta charset="UTF-8">
-<title>ทะเบียนขยะติดเชื้อ</title>
+  <meta charset="UTF-8">
+  <title>ทะเบียนขยะติดเชื้อ</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-body{
-  font-family:'Sarabun', sans-serif;
-  background:#f5f5f5;
-  margin:0;
-  font-size:24px;
-}
-*{
-  box-sizing:border-box;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      font-size: 24px;
+    }
 
-.header{
-  font-size:16px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-  font-family:'Sarabun',sans-serif;
-  background:#f4f6f8;
-  margin:0;
-}
+    .header {
+      font-size: 16px;
+    }
 
-.container{
-  font-size:24px;
-}
-        /* ================= HEADER ================= */
-        .header{
-            width:100%;
-            background:#ffffff;
-            border-bottom:1px solid #e0e0e0;
-            padding:14px 40px;
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+    }
 
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-        }
+    .container {
+      font-size: 24px;
+    }
 
-        .header-left{
-            display:flex;
-            align-items:center;
-            gap:12px;
-            font-size:20px;
-            font-weight:700;
-            color:#5b2c83;
-        }
+    /* ================= HEADER ================= */
+    .header {
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 14px 40px;
 
-        .header-left i{
-            font-size:26px;
-        }
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .header-right{
-            display:flex;
-            align-items:center;
-            gap:16px;
-            font-size:14px;
-        }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #5b2c83;
+    }
 
-        .logout-btn{
-            background:#ff6b6b;
-            color:#fff;
-            padding:8px 16px;
-            border-radius:6px;
-            text-decoration:none;
-            font-weight:600;
-        }
+    .header-left i {
+      font-size: 26px;
+    }
 
-.container{
-  max-width:1500px;
-  background:#ffffff;
-  margin:40px auto;
-  padding:40px;
-  border-radius:14px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.25);
-  position: relative;
-}
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+    }
 
-.top-bar{
-  position:absolute;
-  top:20px;
-  left:20px;
-}
+    .logout-btn {
+      background: #ff6b6b;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-.back-btn{
-  background:#28a745;
-  color:white;
-  padding:10px 20px;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:20px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-}
+    .container {
+      max-width: 1500px;
+      background: #ffffff;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      position: relative;
+    }
 
-.back-btn:hover{
-  background:#218838;
-}
+    .top-bar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
 
-h2{
-  text-align:center;
-  margin-bottom:25px;
-  font-size:32px;
-}
+    .back-btn {
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-}
+    .back-btn:hover {
+      background: #218838;
+    }
 
-th, td{
-  border:1px solid #aaa;
-  padding:12px;
-  text-align:center;
-}
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 32px;
+    }
 
-th{
-  background:#d6ecff;
-  font-weight:600;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-/* ปุ่มไอคอน */
-.action-btn{
-  margin:0 6px;
-  font-size:22px;
-  cursor:pointer;
-  text-decoration:none;
-}
+    th,
+    td {
+      border: 1px solid #aaa;
+      padding: 12px;
+      text-align: center;
+    }
 
-.action-btn:hover{
-  opacity:0.7;
-}
-            /* ================= FOOTER ================= */
-        .footer{
-            width:100%;
-            background:#dcdcdc;
-            text-align:center;
-            padding:18px;
-            font-size:14px;
-            color:#555;
-            margin-top:60px;
-        }
-</style>
+    th {
+      background: #d6ecff;
+      font-weight: 600;
+    }
+
+    /* ปุ่มไอคอน */
+    .action-btn {
+      margin: 0 6px;
+      font-size: 22px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .action-btn:hover {
+      opacity: 0.7;
+    }
+
+    /* ================= FOOTER ================= */
+    .footer {
+      width: 100%;
+      background: #dcdcdc;
+      text-align: center;
+      padding: 18px;
+      font-size: 14px;
+      color: #555;
+      margin-top: 60px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
+  <!-- ===== HEADER ===== -->
+  <div class="header">
     <div class="header-left">
-        <i class="fa-solid fa-stethoscope"></i>
-        ห้องพยาบาล CPF ขอนแก่น
+      <i class="fa-solid fa-stethoscope"></i>
+      ห้องพยาบาล CPF ขอนแก่น
     </div>
 
     <div class="header-right">
-        ผู้ดูแล (admin) | หน่วยงาน Safety
-        <a href="/logout" class="logout-btn">ออก</a>
+      {{ session.get('user_name', 'User') }} ({{ session.get('role', 'user') }}) | หน่วยงาน Safety
+      <a href="/logout" class="logout-btn">ออก</a>
     </div>
-</div>
-
-<div class="container">
-
-  <div class="top-bar">
-    <a href="/waste" class="back-btn">⬅ ย้อนกลับ</a>
   </div>
 
-  <h2>ทะเบียนขยะติดเชื้อ</h2>
+  <div class="container">
 
-  <table>
-    <thead>
-      <tr>
-        <th>ลำดับ</th>
-        <th>วันที่</th>
-        <th>รูป</th>
-        <th>สถานที่</th>
-        <th>จัดการ</th>
-      </tr>
-    </thead>
+    <div class="top-bar">
+      <a href="/waste" class="back-btn">⬅ ย้อนกลับ</a>
+    </div>
 
-    <tbody>
-{% if records|length == 0 %}
-  <tr>
-    <td colspan="5" style="color:#777;">ยังไม่มีข้อมูล</td>
-  </tr>
-{% else %}
-  {% for w in records %}
-  <tr>
-    <td>{{ loop.index }}</td>
-    <td>{{ w.date }}</td>
-    <td>
-      {% if w.photo %}
-        <img src="{{ w.photo }}" style="max-width:120px;border-radius:8px;">
-      {% else %}
-        <span style="color:#999;">ไม่มีรูป</span>
-      {% endif %}
-    </td>
-    <td>{{ w.place }}</td>
-    <td>
-      <a href="/waste/view/{{ w.id }}" class="action-btn">👁️</a>
-      <a href="/waste/edit/{{ w.id }}" class="action-btn">✏️</a>
-      <a href="/waste/delete/{{ w.id }}"
-         class="action-btn"
-         onclick="return confirm('ยืนยันการลบหรือไม่')">🗑️</a>
-    </td>
-  </tr>
-  {% endfor %}
-{% endif %}
-</tbody>
+    <h2>ทะเบียนขยะติดเชื้อ</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ลำดับ</th>
+          <th>วันที่</th>
+          <th>รูป</th>
+          <th>สถานที่</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% if records|length == 0 %}
+        <tr>
+          <td colspan="5" style="color:#777;">ยังไม่มีข้อมูล</td>
+        </tr>
+        {% else %}
+        {% for w in records %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ w.date }}</td>
+          <td>
+            {% if w.photo %}
+            <img src="{{ w.photo }}" style="max-width:120px;border-radius:8px;">
+            {% else %}
+            <span style="color:#999;">ไม่มีรูป</span>
+            {% endif %}
+          </td>
+          <td>{{ w.place }}</td>
+          <td>
+            <a href="/waste/view/{{ w.id }}" class="action-btn">👁️</a>
+            <a href="/waste/edit/{{ w.id }}" class="action-btn">✏️</a>
+            <a href="/waste/delete/{{ w.id }}" class="action-btn" onclick="return confirm('ยืนยันการลบหรือไม่')">🗑️</a>
+          </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+      </tbody>
 
 
-  </table>
+    </table>
 
-</div>
-<!-- ===== FOOTER ===== -->
-<div class="footer">
+  </div>
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
     © 2025 Safety Officer, CPF Khon Kaen Feedmill
-</div>
+  </div>
 </body>
+
 </html>
