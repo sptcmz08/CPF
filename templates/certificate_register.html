@@ -186,31 +186,32 @@
     <script>
       /* ================= CONFIG ================= */
       const PART1_FIELDS = {
-        prefix: "คำนำหน้า",
+        title: "คำนำหน้า",
         fullname: "ชื่อ - นามสกุล",
         address: "ที่อยู่",
-        citizenId: "เลขบัตรประชาชน",
-
         disease: "โรคประจำตัว",
+        disease_detail: "รายละเอียดโรค",
         accident: "อุบัติเหตุ / ผ่าตัด",
-        hospital_history: "เคยรักษาในโรงพยาบาล",
-        other_history: "ประวัติอื่นที่สำคัญ",
-
+        accident_detail: "รายละเอียดอุบัติเหตุ",
+        hospital: "เคยรักษาในโรงพยาบาล",
+        hospital_detail: "รายละเอียดการรักษา",
+        other_history: "ประวัติอื่นที่สำคัญ"
       };
 
       const PART2_FIELDS = {
         doctor_name: "ชื่อแพทย์",
-        exam_detail: "ตรวจร่างกายผู้รับการตรวจ",
-        vital_signs: "น้ำหนัก / ส่วนสูง / ความดัน / ชีพจร",
-        license: "เลขที่ใบประกอบวิชาชีพ",
-        exam_date: "วันที่ตรวจ",
+        hospital_name: "ชื่อโรงพยาบาล/สถานที่ตรวจ",
+        weight: "น้ำหนัก",
+        height: "ส่วนสูง",
+        bp: "ความดัน",
+        pulse: "ชีพจร",
         body_status: "สภาพร่างกายทั่วไปอยู่ในเกณฑ์",
-        opinion: "สรุปความคิดเห็นแพทย์",
-        doctor_sign: "ลงชื่อแพทย์ผู้ตรวจร่างกาย",
-        status: "สถานะ"
+        body_detail: "สรุปความคิดเห็นแพทย์",
+        work_result: "ผลการตรวจ"
       };
 
-      let records = JSON.parse(localStorage.getItem("certificateRecords")) || [];
+      // โหลดข้อมูลจาก Server (Jinja2 template)
+      const records = {{ records | tojson | safe }};
 
       /* ================= PAGE ================= */
       function openPage(p) {
@@ -226,22 +227,21 @@
       <th>#</th>
       <th>ชื่อ</th>
       <th>วันที่</th>
-      <th>สถานะ</th>
       <th>จัดการ</th>
     </tr>
   `;
 
         list.forEach((r, i) => {
+          const recordId = r.id;  // ใช้ ID จาก Google Sheets
           html += `
       <tr>
         <td>${i + 1}</td>
         <td>${r.fullname || "-"}</td>
-        <td>${r.date || "-"}</td>
-        <td>${r.status || "-"}</td>
+        <td>${r.requester_date || r.created_at || "-"}</td>
         <td>
           <span class="action-btn" onclick="viewRecord(${i})">👁️</span>
-          <span class="action-btn" onclick="editRecord(${i})">✏️</span>
-          <span class="action-btn" onclick="deleteRecord(${i})">🗑️</span>
+          <span class="action-btn" onclick="editRecord(${recordId})">✏️</span>
+          <span class="action-btn" onclick="deleteRecord(${recordId})">🗑️</span>
         </td>
       </tr>
     `;
@@ -259,14 +259,15 @@
         let html = `
     <h3>📌 ส่วนที่ 1 ข้อมูลผู้ขอรับใบรับรอง</h3>
     <table>
-      <tr><td>คำนำหน้า</td><td>${r.prefix || "-"}</td></tr>
+      <tr><td>คำนำหน้า</td><td>${r.title || "-"}</td></tr>
       <tr><td>ชื่อ - นามสกุล</td><td>${r.fullname || "-"}</td></tr>
       <tr><td>ที่อยู่</td><td>${r.address || "-"}</td></tr>
-      <tr><td>เลขบัตรประชาชน</td><td>${r.citizenId || "-"}</td></tr>
-      <tr><td>โรคประจำตัว</td><td>${r.disease || "-"}</td></tr>
-      <tr><td>อุบัติเหตุ / ผ่าตัด</td><td>${r.accident || "-"}</td></tr>
-      <tr><td>เคยรักษาในโรงพยาบาล</td><td>${r.hospital_history || "-"}</td></tr>
+      <tr><td>โรคประจำตัว</td><td>${r.disease || "-"} ${r.disease_detail || ""}</td></tr>
+      <tr><td>อุบัติเหตุ / ผ่าตัด</td><td>${r.accident || "-"} ${r.accident_detail || ""}</td></tr>
+      <tr><td>เคยรักษาในโรงพยาบาล</td><td>${r.hospital || "-"} ${r.hospital_detail || ""}</td></tr>
       <tr><td>ประวัติอื่นที่สำคัญ</td><td>${r.other_history || "-"}</td></tr>
+      <tr><td>ลงชื่อผู้ขอ</td><td>${r.requester_sign || "-"}</td></tr>
+      <tr><td>วันที่</td><td>${r.requester_date || "-"}</td></tr>
     </table>
 
     <h3>📌 ส่วนที่ 2 ผลการตรวจและความเห็นแพทย์</h3>
@@ -274,14 +275,7 @@
   `;
 
         Object.entries(PART2_FIELDS).forEach(([k, l]) => {
-          let value = "-";
-
-          if (k === "vital_signs") {
-            value = r.result || "-";   // ⭐ ดึงจาก result มาแสดงตรงนี้
-          } else {
-            value = r[k] || "-";
-          }
-
+          let value = r[k] || "-";
           html += `<tr><td>${l}</td><td>${value}</td></tr>`;
         });
 
@@ -293,16 +287,29 @@
 
       /* ================= EDIT ================= */
       function editRecord(id) {
-        localStorage.setItem("editIndex", id);   // ⭐ เก็บ index ไว้
-        window.location.href = "/medical_certificate/edit";
+        // ส่ง ID ผ่าน URL แทน localStorage
+        window.location.href = `/medical_certificate/edit/${id}`;
       }
 
       /* ================= DELETE ================= */
-      function deleteRecord(i) {
+      async function deleteRecord(id) {
         if (confirm("ยืนยันการลบข้อมูลนี้?")) {
-          records.splice(i, 1);
-          localStorage.setItem("certificateRecords", JSON.stringify(records));
-          loadTable();
+          try {
+            const response = await fetch(`/api/medical_certificate/delete/${id}`, {
+              method: "DELETE"
+            });
+            const result = await response.json();
+
+            if (result.success) {
+              alert("✔ ลบข้อมูลเรียบร้อย");
+              window.location.reload();  // รีโหลดหน้าเพื่อดึงข้อมูลใหม่
+            } else {
+              alert("❌ ลบไม่สำเร็จ: " + (result.message || "Unknown error"));
+            }
+          } catch (error) {
+            console.error("Error deleting certificate:", error);
+            alert("❌ เกิดข้อผิดพลาดในการลบ: " + error.message);
+          }
         }
       }
 
@@ -311,11 +318,12 @@
         q = q.toLowerCase();
         const filtered = records.filter(r =>
           (r.fullname || "").toLowerCase().includes(q) ||
-          (r.date || "").includes(q)
+          (r.requester_date || "").includes(q)
         );
         loadTable(filtered);
       }
     </script>
+
     <!-- ===== FOOTER ===== -->
     <div class="footer">
       © 2025 Safety Officer, CPF Khon Kaen Feedmill
