@@ -616,50 +616,134 @@
     </div>
 
     <script>
-      /* ================= LOAD DATA ================= */
-      const index = localStorage.getItem("editIndex");
-      const records = JSON.parse(localStorage.getItem("certificateRecords")) || [];
-      const data = records[index];
+      /* ================= LOAD DATA FROM SERVER ================= */
+      const recordId = {{ record_id }};
+      let recordData = null;
 
-      if (!data) {
-        alert("ไม่พบข้อมูล");
-        location.href = "/medical_certificate/register";
+      // โหลดข้อมูลจาก API
+      async function loadRecordData() {
+        try {
+          const response = await fetch(`/api/medical_certificate/${recordId}`);
+          const result = await response.json();
+
+          if (result.success && result.data) {
+            recordData = result.data;
+            fillFormData(recordData);
+          } else {
+            alert("ไม่พบข้อมูล");
+            location.href = "/medical_certificate/register";
+          }
+        } catch (error) {
+          console.error("Error loading certificate:", error);
+          alert("เกิดข้อผิดพลาดในการโหลดข้อมูล");
+          location.href = "/medical_certificate/register";
+        }
       }
 
-      /* ===== เติมข้อมูล PART 1 ===== */
-      Object.keys(data).forEach(k => {
-        const el = document.querySelector(`[name="${k}"]`);
-        if (!el) return;
-
-        if (el.type === "radio") {
-          document.querySelectorAll(`[name="${k}"]`)
-            .forEach(r => r.checked = r.value === data[k]);
-        } else {
-          el.value = data[k];
-        }
-      });
-
-      /* ================= SAVE EDIT ================= */
-      function saveEdit() {
-        const form = document.querySelectorAll("input, textarea, select");
-        const updated = {};
-
-        form.forEach(el => {
-          if (el.type === "radio") {
-            if (el.checked) updated[el.name] = el.value;
-          } else {
-            updated[el.name] = el.value;
-          }
-        });
-
-        records[index] = {
-          ...records[index],
-          ...updated
+      /* ===== เติมข้อมูลลงฟอร์ม ===== */
+      function fillFormData(data) {
+        // Part 1 fields - map ชื่อ field ให้ตรงกับ form
+        const fieldMapping = {
+          title: "prefix",  // title ใน DB -> prefix ใน form
+          fullname: "fullname",
+          address: "address",
+          disease: "disease",
+          accident: "accident",
+          hospital: "hospital_history",  // hospital ใน DB -> hospital_history ใน form
+          other_history: "other_history",
+          requester_sign: "signer",  // requester_sign ใน DB -> signer ใน form
+          requester_date: "date",  // requester_date ใน DB -> date ใน form
+          // Part 2 fields
+          doctor_name: "doctor_name",
+          hospital_name: "exam_detail",  // hospital_name ใน DB -> exam_detail ใน form
+          body_status: "body_status",
+          body_detail: "opinion",  // body_detail ใน DB -> opinion ใน form
+          work_result: "result"  // work_result ใน DB -> result ใน form
         };
 
-        localStorage.setItem("certificateRecords", JSON.stringify(records));
-        alert("✔ แก้ไขข้อมูลเรียบร้อย");
-        location.href = "/medical_certificate/register";
+        Object.keys(data).forEach(dbKey => {
+          const formKey = fieldMapping[dbKey] || dbKey;
+          const el = document.querySelector(`[name="${formKey}"]`);
+          if (!el) return;
+
+          if (el.type === "radio") {
+            document.querySelectorAll(`[name="${formKey}"]`)
+              .forEach(r => r.checked = r.value === data[dbKey]);
+          } else if (el.tagName === "SELECT") {
+            // สำหรับ dropdown (prefix/title)
+            for (let option of el.options) {
+              if (option.text === data[dbKey] || option.value === data[dbKey]) {
+                el.value = option.value;
+                break;
+              }
+            }
+          } else {
+            el.value = data[dbKey] || "";
+          }
+        });
+      }
+
+      // โหลดข้อมูลเมื่อหน้าเริ่มต้น
+      loadRecordData();
+
+      /* ================= SAVE EDIT ================= */
+      async function saveEdit() {
+        const p1 = document.getElementById("part1");
+        const p2 = document.getElementById("part2");
+
+        // Helper functions
+        function getVal(root, selector) {
+          const el = root.querySelector(selector);
+          return el ? (el.value || "") : "";
+        }
+        function getRadio(root, name) {
+          const el = root.querySelector(`[name="${name}"]:checked`);
+          return el ? el.value : "";
+        }
+
+        const updated = {
+          // Part 1 - map form names to DB field names
+          title: getVal(p1, 'select[name="prefix"]'),
+          fullname: getVal(p1, '[name="fullname"]'),
+          address: getVal(p1, '[name="address"]'),
+          disease: getRadio(p1, "disease"),
+          disease_detail: getVal(p1, '[name="disease_detail"]') || "",
+          accident: getRadio(p1, "accident"),
+          accident_detail: getVal(p1, '[name="accident_detail"]') || "",
+          hospital: getRadio(p1, "hospital_history"),
+          hospital_detail: getVal(p1, '[name="hospital_history_detail"]') || "",
+          other_history: getVal(p1, '[name="other_history"]'),
+          requester_sign: getVal(p1, '[name="signer"]'),
+          requester_date: getVal(p1, '[name="date"]'),
+          // Part 2
+          doctor_name: getVal(p2, '[name="doctor_name"]'),
+          hospital_name: getVal(p2, '[name="exam_detail"]'),
+          body_status: getVal(p2, '[name="body_status"]'),
+          body_detail: getVal(p2, '[name="opinion"]'),
+          work_result: getVal(p2, '[name="result"]')
+        };
+
+        try {
+          const response = await fetch(`/api/medical_certificate/edit/${recordId}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updated)
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            alert("✔ แก้ไขข้อมูลเรียบร้อย");
+            location.href = "/medical_certificate/register";
+          } else {
+            alert("❌ แก้ไขไม่สำเร็จ: " + (result.message || "Unknown error"));
+          }
+        } catch (error) {
+          console.error("Error saving certificate:", error);
+          alert("❌ เกิดข้อผิดพลาดในการบันทึก: " + error.message);
+        }
       }
 
       /* ================= TAB ================= */
@@ -668,14 +752,15 @@
         document.getElementById("part2").classList.add("hide");
         document.getElementById("part" + p).classList.remove("hide");
       }
+
       function printCert() {
         // แสดงทั้ง 2 ส่วนก่อนพิมพ์
         document.getElementById("part1").classList.remove("hide");
         document.getElementById("part2").classList.remove("hide");
-
         window.print();
       }
     </script>
+
     <!-- ===== FOOTER ===== -->
     <div class="footer">
       © 2025 Safety Officer, CPF Khon Kaen Feedmill
