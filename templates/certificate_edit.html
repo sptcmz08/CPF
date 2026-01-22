@@ -733,7 +733,7 @@
           hospital_name: getVal(p2, '[name="exam_detail"]'),
           body_status: getVal(p2, '[name="body_status"]'),
           body_detail: getVal(p2, '[name="opinion"]'),
-          work_result: "" // เลิกใช้ result รวม
+          work_result: `${getVal(p2, '[name="weight"]')}/${getVal(p2, '[name="height"]')}/${getVal(p2, '[name="bp"]')}/${getVal(p2, '[name="pulse"]')}`
         };
 
         try {
