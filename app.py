@@ -183,15 +183,24 @@ def login():
         password = request.form.get("password", "").strip()
         
         # ค้นหา user จาก Google Sheets
-        res = gas_search("users", "username", username)
-        print(f"DEBUG LOGIN: username={username}, password={password}, res={res}") # DEBUG PRINT
-        if res.get("ok") and res.get("data"):
-            for user in res["data"]:
-                if str(user.get("password", "")).strip() == password:
-                    session["username"] = user["username"]
-                    session["role"] = user.get("role", "user")
-                    session["user_name"] = user.get("name", "")
-                    return redirect("/menu")
+        # ค้นหา user จาก Google Sheets (ใช้ gas_list แล้ว filter เอง เพราะ GAS ไม่มี search)
+        res = gas_list("users", 1000)
+        found_user = None
+        
+        if res.get("ok"):
+             for user in res.get("data", []):
+                 # เทียบ username (case-insensitive)
+                 if str(user.get("username", "")).strip().lower() == username.lower():
+                     found_user = user
+                     break
+        
+        if found_user:
+            # เทียบ password (case-sensitive)
+            if str(found_user.get("password", "")).strip() == password:
+                session["username"] = found_user["username"]
+                session["role"] = found_user.get("role", "user")
+                session["user_name"] = found_user.get("name", "")
+                return redirect("/menu")
         
         return render_template("login.html", error="ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
     
