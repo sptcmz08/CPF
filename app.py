@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = "cpf_nurse"
 
 # ⭐ ใส่ URL ของ Google Apps Script ที่ Deploy แล้ว
-GAS_URL = "https://script.google.com/macros/s/AKfycbx0njPyUAevQ6xuI3Gay5Gikrc8_geiKe-OuiTcHdMCX3z6eweUReAVjwjZh4kudSNq/exec"
+GAS_URL = "https://script.google.com/macros/s/AKfycbxdApOHKIORPj0W5oqZPu9V50X6zd4aTYRc9ls0QiXMLYOwrs96eTS3jAzx4GXazbV5/exec"
 
 # ============================================
 # GOOGLE SHEETS API HELPERS
