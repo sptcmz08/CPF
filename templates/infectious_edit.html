@@ -1,242 +1,248 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
-<meta charset="UTF-8">
-<title>แก้ไขข้อมูลขยะติดเชื้อ</title>
+  <meta charset="UTF-8">
+  <title>แก้ไขข้อมูลขยะติดเชื้อ</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-*{
-  box-sizing:border-box;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.header{
-  font-size:16px;
-}
+    .header {
+      font-size: 16px;
+    }
 
-body{
-  font-family:'Sarabun',sans-serif;
-  background:#f4f6f8;
-  margin:0;
-}
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+    }
 
-.container{
-  font-size:24px;
-}
-        /* ================= HEADER ================= */
-        .header{
-            width:100%;
-            background:#ffffff;
-            border-bottom:1px solid #e0e0e0;
-            padding:14px 40px;
+    .container {
+      font-size: 24px;
+    }
 
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-        }
+    /* ================= HEADER ================= */
+    .header {
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 14px 40px;
 
-        .header-left{
-            display:flex;
-            align-items:center;
-            gap:12px;
-            font-size:20px;
-            font-weight:700;
-            color:#5b2c83;
-        }
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .header-left i{
-            font-size:26px;
-        }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #5b2c83;
+    }
 
-        .header-right{
-            display:flex;
-            align-items:center;
-            gap:16px;
-            font-size:14px;
-        }
+    .header-left i {
+      font-size: 26px;
+    }
 
-        .logout-btn{
-            background:#ff6b6b;
-            color:#fff;
-            padding:8px 16px;
-            border-radius:6px;
-            text-decoration:none;
-            font-weight:600;
-        }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14px;
+    }
 
-.container{
-  max-width:1500px;
-  background:#ffffff;
-  margin:40px auto;
-  padding:40px;
-  border-radius:14px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.25);
-  position: relative;
-}
+    .logout-btn {
+      background: #ff6b6b;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-.top-bar{
-  position:absolute;
-  top:20px;
-  left:20px;
-}
+    .container {
+      max-width: 1500px;
+      background: #ffffff;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      position: relative;
+    }
 
-.back-btn{
-  background:#28a745;
-  color:white;
-  padding:10px 20px;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:20px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-}
-.back-btn:hover{ background:#218838; }
+    .top-bar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
 
-h2{
-  text-align:center;
-  font-size:32px;
-  margin-bottom:30px;
-}
+    .back-btn {
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-.form-box{
-  max-width:800px;
-  margin:0 auto;
-  padding:30px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#cfe9ff,#eaf6ff);
-}
+    .back-btn:hover {
+      background: #218838;
+    }
 
-label{
-  display:block;
-  margin-top:18px;
-  font-weight:600;
-}
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
 
-input{
-  width:100%;
-  padding:12px;
-  margin-top:6px;
-  font-size:22px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  background:#f9fcff;
-}
+    .form-box {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #cfe9ff, #eaf6ff);
+    }
 
-button{
-  margin-top:30px;
-  width:100%;
-  padding:14px;
-  font-size:24px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  background:#7bed9f;
-}
-            /* ================= FOOTER ================= */
-        .footer{
-            width:100%;
-            background:#dcdcdc;
-            text-align:center;
-            padding:18px;
-            font-size:14px;
-            color:#555;
-            margin-top:60px;
-        }
-</style>
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      font-size: 22px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: #f9fcff;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      font-size: 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #7bed9f;
+    }
+
+    /* ================= FOOTER ================= */
+    .footer {
+      width: 100%;
+      background: #dcdcdc;
+      text-align: center;
+      padding: 18px;
+      font-size: 14px;
+      color: #555;
+      margin-top: 60px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
+  <!-- ===== HEADER ===== -->
+  <div class="header">
     <div class="header-left">
-        <i class="fa-solid fa-stethoscope"></i>
-        ห้องพยาบาล CPF ขอนแก่น
+      <i class="fa-solid fa-stethoscope"></i>
+      ห้องพยาบาล CPF ขอนแก่น
     </div>
 
     <div class="header-right">
-        ผู้ดูแล (admin) | หน่วยงาน Safety
-        <a href="/logout" class="logout-btn">ออก</a>
+      {{ session.get('user_name', 'User') }} ({{ session.get('role', 'user') }}) | หน่วยงาน Safety
+      <a href="/logout" class="logout-btn">ออก</a>
     </div>
-</div>
-
-<div class="container">
-
-  <div class="top-bar">
-    <a href="/waste/register" class="back-btn">⬅ ย้อนกลับ</a>
   </div>
 
-  <h2>แก้ไขข้อมูลขยะติดเชื้อ</h2>
+  <div class="container">
 
-  <div class="form-box">
+    <div class="top-bar">
+      <a href="/waste/register" class="back-btn">⬅ ย้อนกลับ</a>
+    </div>
 
-    <div style="text-align:center;margin-bottom:20px;">
-      {% if w.photo %}
+    <h2>แก้ไขข้อมูลขยะติดเชื้อ</h2>
+
+    <div class="form-box">
+
+      <div style="text-align:center;margin-bottom:20px;">
+        {% if w.photo %}
         <img id="preview" src="{{ w.photo }}" style="max-width:300px;border-radius:12px;">
-      {% else %}
+        {% else %}
         <span style="color:#999;">ไม่มีรูปแนบ</span>
         <img id="preview" style="display:none;max-width:300px;border-radius:12px;">
-      {% endif %}
+        {% endif %}
+      </div>
+
+      <form method="POST" id="editForm">
+
+        <label>ชื่อผู้รับกำจัด</label>
+        <input name="company" value="{{ w.company }}" required>
+
+        <label>ปริมาณ (กก.)</label>
+        <input name="amount" value="{{ w.amount }}" required>
+
+        <label>วันที่</label>
+        <input type="date" name="date" value="{{ w.date }}" required>
+
+        <label>เวลา</label>
+        <input type="time" name="time" value="{{ w.time }}" required>
+
+        <label>สถานที่</label>
+        <input name="place" value="{{ w.place }}" required>
+
+        <label>เปลี่ยนรูปขยะติดเชื้อ</label>
+        <input type="file" id="imageFile" accept="image/*">
+        <input type="hidden" name="photo" id="photoInput">
+
+        <button type="submit">💾 บันทึกการแก้ไข</button>
+
+      </form>
     </div>
 
-    <form method="POST" id="editForm">
-
-      <label>ชื่อผู้รับกำจัด</label>
-      <input name="company" value="{{ w.company }}" required>
-
-      <label>ปริมาณ (กก.)</label>
-      <input name="amount" value="{{ w.amount }}" required>
-
-      <label>วันที่</label>
-      <input type="date" name="date" value="{{ w.date }}" required>
-
-      <label>เวลา</label>
-      <input type="time" name="time" value="{{ w.time }}" required>
-
-      <label>สถานที่</label>
-      <input name="place" value="{{ w.place }}" required>
-
-      <label>เปลี่ยนรูปขยะติดเชื้อ</label>
-      <input type="file" id="imageFile" accept="image/*">
-      <input type="hidden" name="photo" id="photoInput">
-
-      <button type="submit">💾 บันทึกการแก้ไข</button>
-
-    </form>
   </div>
 
-</div>
+  <script>
+    document.getElementById("editForm").addEventListener("submit", function (e) {
+      const file = document.getElementById("imageFile").files[0];
+      if (!file) return;
 
-<script>
-document.getElementById("editForm").addEventListener("submit", function(e){
-  const file = document.getElementById("imageFile").files[0];
-  if(!file) return;
+      e.preventDefault();
+      const reader = new FileReader();
+      reader.onload = () => {
+        document.getElementById("photoInput").value = reader.result;
+        this.submit();
+      };
+      reader.readAsDataURL(file);
+    });
 
-  e.preventDefault();
-  const reader = new FileReader();
-  reader.onload = () => {
-    document.getElementById("photoInput").value = reader.result;
-    this.submit();
-  };
-  reader.readAsDataURL(file);
-});
-
-document.getElementById("imageFile").addEventListener("change", function(){
-  const file = this.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    const img = document.getElementById("preview");
-    img.src = reader.result;
-    img.style.display = "block";
-  };
-  reader.readAsDataURL(file);
-});
-</script>
-<!-- ===== FOOTER ===== -->
-<div class="footer">
+    document.getElementById("imageFile").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = document.getElementById("preview");
+        img.src = reader.result;
+        img.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
     © 2025 Safety Officer, CPF Khon Kaen Feedmill
-</div>
+  </div>
 </body>
+
 </html>
